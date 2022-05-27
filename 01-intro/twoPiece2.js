@@ -13,27 +13,18 @@ _reader.on('line', line => {
 
 process.stdin.on('end', solve);
 
-function compareNumeric(a, b) {
-  if (a > b) return 1;
-  if (a == b) return 0;
-  if (a < b) return -1;
-}
-
 function twoSum(array, targetSum) {
-    let left = 0;
-    let right = array.length - 1;
-    let currentSum = 0;
-	array = array.sort(compareNumeric);
+    const searchDataStructure = {};
+    for (let elem of array) {
+        searchDataStructure[elem] = true;
+    }
 
-    while (left < right) {
-        currentSum = array[left] + array[right];
-        if (currentSum === targetSum) {
-            return [array[left], array[right]];
-        }
-        if (currentSum > targetSum) {
-            right--;
-        } else if (currentSum < targetSum) {
-            left++;
+    let needToTarget = 0;
+
+    for (let elem of array) {
+        needToTarget = targetSum - elem;
+        if ((needToTarget in searchDataStructure) && (elem !== needToTarget)) {
+            return [elem, needToTarget];
         }
     }
     return [];
