@@ -6,14 +6,28 @@ describe('test suite', () => {
     });
 
     test('test 2', () => {
-        expect(getLongestWord("    hello b ac    ")).toBe("hello");
+        expect(getLongestWord(18, "    hello b ac    ")).toBe("hello");
     });
 
     test('test 3', () => {
-        expect(getLongestWord("   ")).toBe("");
+        expect(getLongestWord(19, "  cat  and doggy777")).toBe("doggy777");
     });
 
     test('test 4', () => {
-        expect(getLongestWord("frog jumps from river\n")).toBe("jumps");
+        expect(getLongestWord(17, "cat  and doggy777")).toBe("doggy777");
+    });
+
+    test('test 5', () => {
+        expect(getLongestWord(21, "cat  and doggy777    ")).toBe("doggy777");
+    });
+
+    test('test 6', () => {
+        expect(getLongestWord(21, "frog jumps from river")).toBe("jumps");
+    });
+
+    test('test 7', () => {
+        expect(getLongestWord(11, " ligf kaakm")).toBe("kaakm");
     });
 })
+
+

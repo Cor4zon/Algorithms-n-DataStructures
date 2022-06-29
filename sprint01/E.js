@@ -13,8 +13,8 @@ _reader.on('line', line => {
 
 process.stdin.on('end', solve);
 
-const compareWords = (firstWord, secondWord) => {
-    return (firstWord.length > secondWord.length) ? firstWord : secondWord;
+const compareWords = (current, longest) => {
+    return (current.length > longest.length) ? current : longest;
 }
 
 function getLongestWord(length, line) {
@@ -22,16 +22,12 @@ function getLongestWord(length, line) {
     let longestWord = "";
 
     for (let i = 0; i < length; i++) {
-        if (line[i] === ' ') {
-            if (currentWord.length > 0) {
-                longestWord = compareWords(currentWord, longestWord);
-                if (longestWord === currentWord) {
-                    currentWord = "";
-                }
-            }
-            continue;
+        if (line[i] === ' ' && currentWord.length > 0) {
+            longestWord = compareWords(currentWord, longestWord);
+            currentWord = "";
+        } else if (line[i] !== ' ') {
+            currentWord += line[i];
         }
-        currentWord += line[i];
     }
     longestWord = compareWords(currentWord, longestWord);
 

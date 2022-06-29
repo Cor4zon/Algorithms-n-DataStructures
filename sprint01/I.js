@@ -14,7 +14,17 @@ _reader.on('line', line => {
 process.stdin.on('end', solve);
 
 function isPowerOfFour(number) {
-    // Ваше решение
+    let degree = 0;
+    while (true) {
+        let current = 4 ** degree;
+        if (current === number) {
+            return true;
+        }
+        if (current > number) {
+            return false;
+        }
+        degree++;
+    }
 }
 
 function solve() {
@@ -37,3 +47,5 @@ function readArray() {
     _curLine++;
     return arr;
 }
+
+module.exports = { isPowerOfFour }

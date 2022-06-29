@@ -18,7 +18,31 @@ const reverseString = str => {
 }
 
 function sumOfBinaries(firstNumber, secondNumber) {
-    // Ваше решение
+    let decFirstNumber = binToDec(firstNumber);
+    let decSecondNumber = binToDec(secondNumber);
+    let result = decFirstNumber + decSecondNumber;
+    return decToBin(result);
+}
+
+function decToBin(number) {
+    let binaryNumber = '';
+    while (number > 1) {
+        binaryNumber += number % 2;
+        number = Math.floor(number / 2);
+    }
+    binaryNumber += number;
+    return reverseString(binaryNumber);
+}
+
+function binToDec(number) {
+    let decNumber = 0n;
+    let order = 0;
+    for (let i = number.length - 1; i >= 0; i--) {
+        decNumber += BigInt(number[i] * (2 ** order));
+        order++;
+    }
+
+    return decNumber;
 }
 
 function solve() {
@@ -44,3 +68,5 @@ function readLine() {
     _curLine++;
     return line;
 }
+
+module.exports = { sumOfBinaries }

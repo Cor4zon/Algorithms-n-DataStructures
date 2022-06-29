@@ -14,7 +14,12 @@ _reader.on('line', line => {
 process.stdin.on('end', solve);
 
 function getSum(listNumber, number) {
-    // Ваше решение
+    let numberFromList = 0;
+    for (let i = 0; i < listNumber.length; i++) {
+        numberFromList *= 10;
+        numberFromList += listNumber[i];
+    }
+    return String(numberFromList + number).split('');
 }
 
 function solve() {
@@ -36,3 +41,5 @@ function readArray() {
     _curLine++;
     return arr;
 }
+
+module.exports = { getSum }
