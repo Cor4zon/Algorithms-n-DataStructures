@@ -12,4 +12,8 @@ describe('test suite', () => {
     test('test 3', () => {
         expect(sumOfBinaries('1', '1')).toBe('10');
     })
+
+    test('test 4', () => {
+        expect(sumOfBinaries('11111', '1')).toBe('100000');
+    })
 })

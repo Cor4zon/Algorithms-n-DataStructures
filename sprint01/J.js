@@ -14,7 +14,27 @@ _reader.on('line', line => {
 process.stdin.on('end', solve);
 
 function factorize(number) {
-    // Ваше решение
+    const multipliersArray = [];
+    while (number > 1) {
+        if (number % 2 === 0) {
+            multipliersArray.push(2);
+            number /= 2;
+            continue;
+        }
+        if (number % 3 === 0) {
+            multipliersArray.push(3);
+            number /= 3;
+            continue;
+        }
+        if (number % 5 === 0) {
+            multipliersArray.push(5);
+            number /= 5;
+            continue;
+        }
+        multipliersArray.push(number);
+        return multipliersArray;
+    }
+    return multipliersArray;
 }
 
 function solve() {
@@ -34,3 +54,5 @@ function readArray() {
     _curLine++;
     return arr;
 }
+
+module.exports = { factorize }

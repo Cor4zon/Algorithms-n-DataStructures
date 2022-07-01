@@ -13,36 +13,38 @@ _reader.on('line', line => {
 
 process.stdin.on('end', solve);
 
-const reverseString = str => {
-    return str.split('').reverse().join('');
+const addBinaryNumbers = (first, second, extra) => {
+    const sum = +first + +second + +extra;
+    if (sum === 3) {
+        return [1, 1];
+    } else if (sum === 2) {
+        return [0, 1];
+    } else if (sum === 1) {
+        return [1, 0];
+    }
+    return [0, 0];
 }
 
 function sumOfBinaries(firstNumber, secondNumber) {
-    let decFirstNumber = binToDec(firstNumber);
-    let decSecondNumber = binToDec(secondNumber);
-    let result = decFirstNumber + decSecondNumber;
-    return decToBin(result);
-}
-
-function decToBin(number) {
-    let binaryNumber = '';
-    while (number > 1) {
-        binaryNumber += number % 2;
-        number = Math.floor(number / 2);
-    }
-    binaryNumber += number;
-    return reverseString(binaryNumber);
-}
-
-function binToDec(number) {
-    let decNumber = 0n;
-    let order = 0;
-    for (let i = number.length - 1; i >= 0; i--) {
-        decNumber += BigInt(number[i] * (2 ** order));
-        order++;
+    let resultNumber = "";
+    let extra = 0;
+    const deltaZeros = Math.abs(firstNumber.length - secondNumber.length);
+    if (firstNumber.length > secondNumber.length) {
+        secondNumber = '0'.repeat(deltaZeros) + secondNumber;
+    } else {
+        firstNumber = '0'.repeat(deltaZeros) + firstNumber;
     }
 
-    return decNumber;
+    let currentResult = 0;
+    for (let i = firstNumber.length - 1; i >= 0; i--) {
+        [currentResult, extra] = addBinaryNumbers(firstNumber[i], secondNumber[i], extra);
+        resultNumber = currentResult + resultNumber;
+    }
+
+    if (extra == 1) {
+        resultNumber = '1' + resultNumber;
+    }
+    return resultNumber;
 }
 
 function solve() {
