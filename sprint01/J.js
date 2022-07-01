@@ -14,26 +14,21 @@ _reader.on('line', line => {
 process.stdin.on('end', solve);
 
 function factorize(number) {
+    let divider = 2;
     const multipliersArray = [];
-    while (number > 1) {
-        if (number % 2 === 0) {
-            multipliersArray.push(2);
-            number /= 2;
-            continue;
+    while (number !== divider) {
+        if (number % divider === 0) {
+            number /= divider;
+            multipliersArray.push(divider);
+        } else {
+            if (divider > Math.sqrt(number)) {
+                divider = number;
+                break;
+            }
+            divider++;
         }
-        if (number % 3 === 0) {
-            multipliersArray.push(3);
-            number /= 3;
-            continue;
-        }
-        if (number % 5 === 0) {
-            multipliersArray.push(5);
-            number /= 5;
-            continue;
-        }
-        multipliersArray.push(number);
-        return multipliersArray;
     }
+    multipliersArray.push(divider);
     return multipliersArray;
 }
 
