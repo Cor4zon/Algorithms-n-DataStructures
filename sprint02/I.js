@@ -1,40 +1,48 @@
 class MyQueueSized {
-    constructor(max_size) {
-        this.queue = [];
-        this.max_size = max_size;
+    constructor(maxSize) {
+        this.queue = new Array(maxSize);
+        this.maxSize = maxSize;
+        this.head = 0;
+        this.tail = 0;
+        this.queueSize = 0;
     }
 
     push(item) {
-        if (this.size() < this.max_size) {
-            this.queue.push(item);
+        if (this.queueSize !== this.maxSize) {
+            this.queue[this.tail] = item
+            this.tail = (this.tail + 1) % this.maxSize;
+            this.queueSize += 1;
         } else {
-            console.log('error')
-            return;
+            console.log('error');
         }
     }
 
     pop() {
         if (this.isEmpty()) {
-            console.log('None');
-            return;
+            return 'None'
+        } else {
+            const lastItem = this.queue[this.head];
+            this.queue[this.head] = null;
+            this.head = (this.head + 1) % this.maxSize;
+            this.queueSize -= 1;
+            return lastItem;
         }
-        console.log(this.queue.shift());
     }
 
     peek() {
         if (this.isEmpty()) {
-            console.log('None');
-            return;
+            return 'None';
+        } else {
+            return this.queue[this.head];
         }
-        console.log(this.queue[0]);
     }
 
     size() {
-        return this.queue.length;
+        return this.queueSize;
     }
 
     isEmpty() {
-        return this.size() === 0;
+        return this.queueSize === 0;
     }
 }
 
@@ -53,7 +61,6 @@ _reader.on('line', line => {
 
 process.stdin.on('end', solve);
 
-
 function solve() {
     const length = readInt();
     const maxSize = readInt();
@@ -62,13 +69,13 @@ function solve() {
     for (let i = 0; i < length; i++) {
         const line = readLine();
         const commands = line.split(' ');
-        if (commands[0] === 'push') {
+        if (commands[0] == 'push') {
             queue.push(Number(commands[1]))
-        } else if (commands[0] === 'pop') {
-            queue.pop();
-        } else if (commands[0] === 'peek') {
-            queue.peek();
-        } else if (commands[0] === 'size') {
+        } else if (commands[0] == 'pop') {
+            console.log(queue.pop());
+        } else if (commands[0] == 'peek') {
+            console.log(queue.peek());
+        } else if (commands[0] == 'size') {
             console.log(queue.size());
         }
     }
@@ -85,5 +92,3 @@ function readLine() {
     _curLine++;
     return line;
 }
-
-
